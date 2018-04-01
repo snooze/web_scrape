@@ -35,8 +35,17 @@ def get_player_main_info(table):
     for row in table.select('tr')[1:-1]:
         player_number = int(row.select_one('td').text)
         player_name = row.select('td')[1].text
+        player_pos = row.select('td')[2].text
+        player_ht = row.select('td')[3].text
+        player_wt = row.select('td')[4].text
+        player_class = row.select('td')[5].text
+        player_hometown = row.select('td')[6].text
         players.append({
             'number': player_number,
-            'player name': player_name
+            'name': player_name,
+            'height': player_ht,
+            'weight': player_wt,
+            'class': player_class,
+            'hometown': player_hometown
         })
     return players
