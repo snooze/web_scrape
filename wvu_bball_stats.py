@@ -19,3 +19,24 @@ roster = soup.select_one(
             'table.items.table.table-striped.table-bordered.table-condensed')
 
 roster.select('th')
+
+
+def get_player_table_headers(table):
+    cols = []
+    for th in roster.select('th'):
+        cols.append({'name': th.text})
+    return cols
+
+get_player_table_headers(roster)
+
+def get_player_main_info(table):
+    cols = get_player_table_headers(table)
+    players = []
+    for row in table.select('tr')[1:-1]:
+        player_number = int(row.select_one('td').text)
+        player_name = row.select('td')[1].text
+        players.append({
+            'number': player_number,
+            'player name': player_name
+        })
+    return players
