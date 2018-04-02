@@ -14,7 +14,6 @@ def get_bball_stats_main():
     return BeautifulSoup(response.content, "lxml")
 
 soup = get_bball_stats_main()
-
 roster = soup.select_one(
             'table.items.table.table-striped.table-bordered.table-condensed')
 
@@ -49,3 +48,5 @@ def get_player_main_info(table):
             'hometown': player_hometown
         })
     return players
+
+player_main_info = get_player_main_info(roster)
