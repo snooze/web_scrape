@@ -1,5 +1,8 @@
 import requests
+import requests_cache
 from bs4 import BeautifulSoup
+
+requests_cache.install_cache('wvu_stats', backend='sqlite', expire_after=7200)
 
 response = requests.get("http://www.wvustats.com")
 
@@ -39,13 +42,16 @@ def get_player_main_info(table):
         player_wt = row.select('td')[4].text
         player_class = row.select('td')[5].text
         player_hometown = row.select('td')[6].text
+        for player in row.select('td')[1]:
+            href = player.attrs['href']
         players.append({
             'number': player_number,
             'name': player_name,
             'height': player_ht,
             'weight': player_wt,
             'class': player_class,
-            'hometown': player_hometown
+            'hometown': player_hometown,
+            'bio_link': player.attrs['href']
         })
     return players
 
